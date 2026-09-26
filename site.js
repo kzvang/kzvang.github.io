@@ -25,3 +25,18 @@ else if(isEvening)
 {
     header.innerHTML = `Hello, good evening.`
 }
+
+
+const key = "It's a secret to everybody."
+const hidden = document.querySelector('#hidden')
+const userInput = document.querySelector('#userinput')
+const find = document.querySelector('#find')
+
+find.addEventListener('click', () => {
+    if (userInput.value === key)
+    {
+    hidden.textContent = localStorage.getItem(key)
+    }
+})
+
+localStorage.setItem(key, '"Be the change that you wish to see in the world."' )

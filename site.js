@@ -86,3 +86,48 @@ nextButton.addEventListener('click', () => {
 setInterval(() => {
     nextButton.click()
    }, 5000)
+
+
+// To-Do List functionality
+
+const todoList = document.querySelector('.todo-list')
+const input = document.querySelector('#new-todo')
+const addButton = document.querySelector('#add')
+
+const todos = JSON.parse(localStorage.getItem('todo-list')) || [
+        { "text": "Buy milk", "completed": false },
+        { "text": "Walk the dog", "completed": false },
+        { "text": "Do homework", "completed": false }
+    ]
+
+const renderTodos = () => {
+
+
+    //Clear the li's before we recreate them
+    todoList.innerHTML = ''
+
+    // Create and add new list items to the DOM
+    todos.forEach(todo => {
+        const li = document.createElement('li')
+        li.textContent = todo.text
+        todoList.append(li)
+    })
+}
+
+renderTodos()
+
+// Add a new item to the list
+addButton.addEventListener('click', () => {
+    const todoText = input.value.trim()
+    if(!todoText) return
+    
+
+    todos.push({ text: todoText, completed: false })
+    renderTodos()
+
+    // Save the list to local storage
+    localStorage.setItem('todo-list', JSON.stringify(todos))
+    
+    input.value = ''
+    input.focus()
+})

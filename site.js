@@ -1,3 +1,5 @@
+// const { json } = require('stream/consumers')
+
 const hours = new Date().getHours() // get the current hour
 
 const isMorning = hours >= 4 && hours < 12 // is it morning?
@@ -40,6 +42,7 @@ find.addEventListener('click', () => {
 })
 
 localStorage.setItem(key, '"Be the change that you wish to see in the world."' )
+
 
 
 const urls = [
@@ -131,3 +134,25 @@ addButton.addEventListener('click', () => {
     input.value = ''
     input.focus()
 })
+
+// API fetch:
+const div = document.querySelector('#pokemon-container')
+
+async function getRandomPokemon () {
+        const url = 'https://pokeapi.co/api/v2/pokemon/' + Math.floor(Math.random() * 150)
+        const response = await fetch(url)
+
+        const pokemon = await response.json()   
+        
+        renderPokemon(pokemon)
+}
+
+const renderPokemon = (pokemon) => {
+        const img = document.createElement('img')
+        img.src = pokemon.sprites.front_default
+        img.alt = pokemon.name
+        div.append(img)   
+}
+
+getRandomPokemon();
+

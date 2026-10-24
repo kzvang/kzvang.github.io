@@ -135,24 +135,33 @@ addButton.addEventListener('click', () => {
     input.focus()
 })
 
+
+
 // API fetch:
-const div = document.querySelector('#pokemon-container')
+    const div = document.querySelector('#pokemon-container')
 
-async function getRandomPokemon () {
-        const url = 'https://pokeapi.co/api/v2/pokemon/' + Math.floor(Math.random() * 150)
-        const response = await fetch(url)
+        const getPokemon = async () => {
+            const renderPokemon = (pokemon) => {
+                const img = document.createElement('img')
+                img.src = pokemon.sprites.front_default
+                img.alt = pokemon.name
+                div.innerHTML = ""
+                div.append(img)   
+            }
 
-        const pokemon = await response.json()   
-        
-        renderPokemon(pokemon)
-}
+            const getRandomPokemon = async () =>{
 
-const renderPokemon = (pokemon) => {
-        const img = document.createElement('img')
-        img.src = pokemon.sprites.front_default
-        img.alt = pokemon.name
-        div.append(img)   
-}
+                const url = 'https://pokeapi.co/api/v2/pokemon/' + Math.floor(Math.random() * 150)
+                const response = await fetch(url)
+                const pokemon = await response.json()   
+                renderPokemon(pokemon)
 
-getRandomPokemon();
+            }
+            const pokemon = await getRandomPokemon()
+        }
+        getPokemon()
+
+
+
+
 
